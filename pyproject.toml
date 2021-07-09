@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "bpy"
+version = "2.92-alpha.0"
+description = "Blender as a python module"
+authors = ["Tyler Gubala gubalatyler@gmail.com"]
+maintainers = ["Can H. Tartanoglu canhtart@gmail.com"]
+homepage = "https://github.com/TylerGubala/blenderpy"
+license = "GPL-3.0"
+
+build = "build.py"
+keywords = ["Blender, 3D, Animation, Renderer, Rendering"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: ",
+    "GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: C",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: Implementation :: ",
+    "CPython",
+    "Topic :: Artistic Software",
+    "Topic :: Education",
+    "Topic :: Multimedia",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Multimedia :: Graphics :: 3D Modeling",
+    "Topic :: Multimedia :: Graphics :: 3D Rendering",
+    "Topic :: Games/Entertainment"
+]
+
+[tool.poetry.scripts]
+bpy_post_install = "blenderpy.post_install:post_install"
+bpy_pre_uninstall = "blenderpy.pre_uninstall:pre_uninstall"
+
+[tool.poetry.dependencies]
+python = ">=3.7, <3.8"
+numpy = "^1.21.0"
+
+[tool.poetry.dev-dependencies]
+black = "*"
+isort = "*"
+nose = "^1.3.7"
+scikit-build = "^0.11.1"
+bpy-build = "^1.6.2"
+future-fstrings = "^1.2.0"
+pylint = "^2.5.0"
+rope = "^0.16.0"
+twine = "^3.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -10,20 +10,23 @@ and the addon module the Blender 3d application requires
 """
 # STD LIB imports
 import concurrent.futures
-from multiprocessing import freeze_support # For NT python exe creation
 import sys
+from multiprocessing import freeze_support  # For NT python exe creation
+
 
 def multiFunction(data):
     import bpy
+
     print(data)
     print(bpy)
 
-if __name__ == '__main__' :
+
+if __name__ == "__main__":
 
     freeze_support()
 
-    data = ['Uno','Deux','Three']
+    data = ["Uno", "Deux", "Three"]
 
     with concurrent.futures.ProcessPoolExecutor() as p:
 
-        p.map(multiFunction,data)
+        p.map(multiFunction, data)

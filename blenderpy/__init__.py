@@ -13,7 +13,7 @@ from typing import Optional
 
 # Monkey-patch 3.4 and below
 
-if sys.version_info < (3,5):
+if sys.version_info < (3, 5):
 
     def home_path() -> pathlib.Path:
 
@@ -26,12 +26,18 @@ BLENDER_SCRIPTS_DIR_REGEX = re.compile(BLENDER_SCRIPTS_DIR_PATTERN)
 
 EXECUTABLE_DIR = pathlib.Path(sys.executable).parent
 
-BLENDER_SCRIPTS_INSTALL_DIR_LINUX = os.path.join(str(EXECUTABLE_DIR.parent.absolute()), 
-                                                 "lib", "python"+str(sys.version_info[0])+"."+str(sys.version_info[1]), 
-                                                 "site-packages")
-BLENDER_SCRIPTS_INSTALL_DIR_MACOS = os.path.join(str(EXECUTABLE_DIR.parent.absolute()), 
-                                                 "lib", "python"+str(sys.version_info[0])+"."+str(sys.version_info[1]), 
-                                                 "Resources")
+BLENDER_SCRIPTS_INSTALL_DIR_LINUX = os.path.join(
+    str(EXECUTABLE_DIR.parent.absolute()),
+    "lib",
+    "python" + str(sys.version_info[0]) + "." + str(sys.version_info[1]),
+    "site-packages",
+)
+BLENDER_SCRIPTS_INSTALL_DIR_MACOS = os.path.join(
+    str(EXECUTABLE_DIR.parent.absolute()),
+    "lib",
+    "python" + str(sys.version_info[0]) + "." + str(sys.version_info[1]),
+    "Resources",
+)
 BLENDER_SCRIPTS_INSTALL_DIR_WINDOWS = str(EXECUTABLE_DIR.absolute())
 
 PYTHON_SCRIPTS_DIR_WINDOWS_SYSPYTHON = str(EXECUTABLE_DIR.parent.absolute())
@@ -40,16 +46,19 @@ PYTHON_SCRIPTS_DIR_UNIX = str(EXECUTABLE_DIR.parent.parent.absolute())
 
 SYSTEM_NAME = platform.system()
 
+
 def find_blender_scripts_directory(search_root: str) -> Optional[str]:
 
     for _dir, _dirs, _files in os.walk(search_root):
 
-        if re.match(BLENDER_SCRIPTS_DIR_REGEX, os.path.basename(_dir)) and\
-           all([entry in _dirs for entry in ["datafiles", "scripts"]]):
+        if re.match(BLENDER_SCRIPTS_DIR_REGEX, os.path.basename(_dir)) and all(
+            [entry in _dirs for entry in ["datafiles", "scripts"]]
+        ):
 
             return _dir
 
     return None
+
 
 def get_python_scripts_directory() -> str:
     if SYSTEM_NAME in ["Darwin", "Linux"]:
@@ -58,12 +67,11 @@ def get_python_scripts_directory() -> str:
 
     elif SYSTEM_NAME == "Windows":
 
-        if os.path.basename(str(EXECUTABLE_DIR)).casefold() \
-           == "scripts".casefold():
+        if os.path.basename(str(EXECUTABLE_DIR)).casefold() == "scripts".casefold():
 
-           # User is in venv (probably)
+            # User is in venv (probably)
 
-           return PYTHON_SCRIPTS_DIR_WINDOWS_VENPYTHON
+            return PYTHON_SCRIPTS_DIR_WINDOWS_VENPYTHON
 
         else:
 
@@ -73,7 +81,8 @@ def get_python_scripts_directory() -> str:
 
     else:
 
-        raise Exception("Cannot determine system type: "+SYSTEM_NAME)
+        raise Exception("Cannot determine system type: " + SYSTEM_NAME)
+
 
 def get_blender_scripts_install_dir() -> str:
     if SYSTEM_NAME == "Darwin":
@@ -90,4 +99,4 @@ def get_blender_scripts_install_dir() -> str:
 
     else:
 
-        raise Exception("Cannot determine system type: "+SYSTEM_NAME)
+        raise Exception("Cannot determine system type: " + SYSTEM_NAME)
